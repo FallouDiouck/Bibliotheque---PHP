@@ -55,7 +55,7 @@ function getActiveReservation($user_id, $livre_id){
     return $stmt->fetch();
 }
 
-function getReservationsById($id){
+function getReservationById($id){
     global $connexion;
     $sql = "SELECT * FROM reservations WHERE id = :id";
     $stmt = $connexion->prepare($sql);
