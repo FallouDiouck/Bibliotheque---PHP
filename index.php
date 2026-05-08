@@ -4,6 +4,7 @@ session_start();
 require_once 'database/db_connection.php';
 require_once 'database/livre_db.php';
 require_once 'database/categorie_db.php';
+require_once 'database/reservation_db.php';
 $index = true;
 
 if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin') {
@@ -11,15 +12,14 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin') {
     exit;
 }
 
-include 'navbar.php';
 include 'header.php';
+include 'navbar.php';
 
 if(isset($_GET['search']) && !empty($_GET['search'])){
     $searchTerm = $_GET['search'];
     $livres = searchLivres($searchTerm);
     if(empty($livres)){
         $_SESSION['error'] = "Aucun livre trouvé pour : " . htmlspecialchars($searchTerm);
-        unset($_SESSION['error']);
         $livres = getAllLivres();
     }
 } else {
@@ -78,17 +78,23 @@ unset($_SESSION['error']);
                                             Ce livre est actuellement indisponible.
                                         </div>
                                     <?php endif; ?>
-
+                                        <?php if ($livre['nbr_livre'] > 0): ?>
                                     <form action="/action/emprunt/emprunt_action.php" method="POST"
                                         onsubmit="return confirm('Voulez-vous vraiment emprunter ce livre ?');">
                                         <input type="hidden" name="livre_id" value="<?php echo $livre['id']; ?>">
-                                        <button type="submit" class="btn-borrow"
-                                            <?= ($livre['nbr_livre'] <= 0) ? 'disabled' : '' ?>>
-                                            <i class="bi bi-bookmark-plus me-1"></i>
-                                            <?= $livre['nbr_livre'] > 0 ? 'Emprunter' : 'Indisponible' ?>
+                                        <button type="submit" class="btn-borrow">
+                                            <i class="bi bi-bookmark-plus me-2"></i>Emprunter
                                         </button>
                                     </form>
-
+                                    <?php else: ?>
+                                        <form action="/action/reservations/reservation_action.php" method="POST">
+                                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                        <input type="hidden" name="livre_id" value="<?php echo $livre['id']; ?>">
+                                        <button type="submit" class="btn-borrow">
+                                            <i class="bi bi-bookmark-plus me-2"></i>Réserver
+                                        </button>
+                                    </form>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>

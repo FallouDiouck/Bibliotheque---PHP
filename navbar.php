@@ -35,6 +35,16 @@
                             <i class="bi bi-bookmark-check me-1"></i>Mes Emprunts
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= isset($profil) ? 'active' : '' ?>" href="/views/profil/profil.php">
+                            <i class="bi bi-person-circle me-1"></i>Profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= isset($reser) ? 'active' : '' ?>" href="/views/reservations/mes_reservations.php">
+                            <i class="bi bi-calendar-check me-1"></i>Mes Réservations
+                        </a>
+                    </li>
                 <?php endif; ?>
 
                 <?php if (!isset($_SESSION['user_id'])): ?>
@@ -46,12 +56,6 @@
                     <li class="nav-item">
                         <a class="nav-link <?= isset($register) ? 'active' : '' ?>" href="/views/auth/register.php">
                             <i class="bi bi-person-plus me-1"></i>Inscription
-                        </a>
-                    </li>
-                <?php elseif (isset($_SESSION['user_id']) && $_SESSION['role'] === 'user'): ?>
-                    <li class="nav-item">
-                        <a class="nav-link <?= isset($profil) ? 'active' : '' ?>" href="/views/profil/profil.php">
-                            <i class="bi bi-person-circle me-1"></i>Profil
                         </a>
                     </li>
                 <?php endif; ?>

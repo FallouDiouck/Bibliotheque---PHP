@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         $emprunt = getEmpruntById($emprunt_id);
         if($emprunt){
-            updateEmprunt($emprunt_id, $emprunt['livre_id'], $emprunt['user_id'], $emprunt['date_emprunt'], date('Y-m-d'), 'retourné');
+            updateEmprunt($emprunt_id, $emprunt['livre_id'], $emprunt['user_id'], $emprunt['date_emprunt'], date('Y-m-d'), 'retourne');
             $livre = getLivreById($livre_id);
             if($livre){
                 $livre['nbr_livre'] += 1;

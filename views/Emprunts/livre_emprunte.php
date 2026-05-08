@@ -15,7 +15,6 @@ unset($_SESSION['success']);
 
 <main>
     <div class="container py-5">
-
         <?php if ($successMessage): ?>
             <div style="background:var(--green-bg); border:1px solid var(--green-text); color:var(--green-text); border-radius:10px; padding:14px 20px; font-size:14px; margin-bottom:24px;">
                 <i class="bi bi-check-circle me-2"></i><?php echo $successMessage; ?>
